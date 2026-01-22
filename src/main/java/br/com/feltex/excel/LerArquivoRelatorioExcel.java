@@ -33,7 +33,7 @@ public class LerArquivoRelatorioExcel {
             for (Row linha : primeiraAba) {
                 if (++contadorLinha == 1) continue; // Ignora cabeçalho
 
-                int chaveAtual = (int) linha.getCell(21).getNumericCellValue();
+                int chaveAtual = Integer.parseInt(linha.getCell(21).getStringCellValue());
                 int mesAtual = (int) linha.getCell(1).getNumericCellValue();
 
                 if (chaveAnterior == chaveAtual) {
@@ -46,6 +46,7 @@ public class LerArquivoRelatorioExcel {
                 adicionarRegistro(linha, registros);
                 mesAnterior = mesAtual;
                 chaveAnterior = chaveAtual;
+                System.out.println("Linha: " +  contadorLinha);
             }
 
         } catch (FileNotFoundException e) {
@@ -64,14 +65,14 @@ public class LerArquivoRelatorioExcel {
                 .ano((int) linha.getCell(0).getNumericCellValue())
                 .mes((int) linha.getCell(1).getNumericCellValue())
                 .contaContabil((int) linha.getCell(2).getNumericCellValue())
-                .ic1(linha.getCell(3).getStringCellValue())
-                .tipo1(linha.getCell(4).getStringCellValue())
-                .ic2(linha.getCell(5).getStringCellValue())
-                .tipo2(linha.getCell(6).getStringCellValue())
-                .ic3(linha.getCell(7).getStringCellValue())
-                .tipo3(linha.getCell(8).getStringCellValue())
-                .ic4(linha.getCell(9).getStringCellValue())
-                .tipo4(linha.getCell(10).getStringCellValue())
+                .ic1((linha.getCell(3) == null ? "" : linha.getCell(3).getStringCellValue()))
+                .tipo1((linha.getCell(4) == null ? "" : linha.getCell(4).getStringCellValue()))
+                .ic2((linha.getCell(5) == null ? "" : linha.getCell(5).getStringCellValue()))
+                .tipo2((linha.getCell(6) == null ? "" : linha.getCell(6).getStringCellValue()))
+                .ic3((linha.getCell(7) == null ? "" : linha.getCell(7).getStringCellValue()))
+                .tipo3((linha.getCell(8) == null ? "" : linha.getCell(8).getStringCellValue()))
+                .ic4((linha.getCell(9) == null ? "" : linha.getCell(9).getStringCellValue()))
+                .tipo4((linha.getCell(10) == null ? "" : linha.getCell(10).getStringCellValue()))
                 .ic5((linha.getCell(11) == null ? "" : linha.getCell(11).getStringCellValue()))
                 .tipo5((linha.getCell(12) == null ? "" : linha.getCell(12).getStringCellValue()))
                 .ic6((linha.getCell(13) == null ? "" : linha.getCell(13).getStringCellValue()))
@@ -81,8 +82,10 @@ public class LerArquivoRelatorioExcel {
                 .valorCredito(BigDecimal.valueOf((double) linha.getCell(17).getNumericCellValue()))
                 .saldoFinal(BigDecimal.valueOf((double) linha.getCell(18).getNumericCellValue()))
                 .chaveTabela(linha.getCell(19).getStringCellValue())
-                .linha((int) linha.getCell(20).getNumericCellValue())
-                .chave((int) linha.getCell(21).getNumericCellValue())
+//                .linha((int) linha.getCell(20).getNumericCellValue())
+//                .chave((int) linha.getCell(21).getNumericCellValue())
+                .linha(Integer.parseInt(linha.getCell(20).getStringCellValue()))
+                .chave(Integer.parseInt(linha.getCell(21).getStringCellValue()))
                 .build();
 
         registros.add(registro);
@@ -97,16 +100,16 @@ public class LerArquivoRelatorioExcel {
                     .ano((int) linha.getCell(0).getNumericCellValue())
                     .mes(mesInicial++)
                     .contaContabil((int) linha.getCell(2).getNumericCellValue())
-                    .ic1(linha.getCell(3).getStringCellValue())
-                    .tipo1(linha.getCell(4).getStringCellValue())
-                    .ic2(linha.getCell(5).getStringCellValue())
-                    .tipo2(linha.getCell(6).getStringCellValue())
-                    .ic3(linha.getCell(7).getStringCellValue())
-                    .tipo3(linha.getCell(8).getStringCellValue())
-                    .ic4(linha.getCell(9).getStringCellValue())
-                    .tipo4(linha.getCell(10).getStringCellValue())
-                    .ic5(linha.getCell(11).getStringCellValue())
-                    .tipo5(linha.getCell(12).getStringCellValue())
+                    .ic1((linha.getCell(3) == null ? "" : linha.getCell(3).getStringCellValue()))
+                    .tipo1((linha.getCell(4) == null ? "" : linha.getCell(4).getStringCellValue()))
+                    .ic2((linha.getCell(5) == null ? "" : linha.getCell(5).getStringCellValue()))
+                    .tipo2((linha.getCell(6) == null ? "" : linha.getCell(6).getStringCellValue()))
+                    .ic3((linha.getCell(7) == null ? "" : linha.getCell(7).getStringCellValue()))
+                    .tipo3((linha.getCell(8) == null ? "" : linha.getCell(8).getStringCellValue()))
+                    .ic4((linha.getCell(9) == null ? "" : linha.getCell(9).getStringCellValue()))
+                    .tipo4((linha.getCell(10) == null ? "" : linha.getCell(10).getStringCellValue()))
+                    .ic5((linha.getCell(11) == null ? "" : linha.getCell(11).getStringCellValue()))
+                    .tipo5((linha.getCell(12) == null ? "" : linha.getCell(12).getStringCellValue()))
                     .ic6((linha.getCell(13) == null ? "" : linha.getCell(13).getStringCellValue()))
                     .tipo6((linha.getCell(14) == null ? "" : linha.getCell(14).getStringCellValue()))
                     .saldoInicial(BigDecimal.valueOf((double) linha.getCell(15).getNumericCellValue()))
@@ -114,8 +117,8 @@ public class LerArquivoRelatorioExcel {
                     .valorCredito(BigDecimal.ZERO)
                     .saldoFinal(BigDecimal.valueOf((double) linha.getCell(15).getNumericCellValue())) // saldoInicial e saldoFinal são iguais nos novos registros
                     .chaveTabela(linha.getCell(19).getStringCellValue())
-                    .linha((int) linha.getCell(20).getNumericCellValue())
-                    .chave((int) linha.getCell(21).getNumericCellValue())
+                    .linha(Integer.parseInt(linha.getCell(20).getStringCellValue()))
+                    .chave(Integer.parseInt(linha.getCell(21).getStringCellValue()))
                     .build();
 
             registros.add(registro);
